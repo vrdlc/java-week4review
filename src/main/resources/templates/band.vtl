@@ -1,6 +1,10 @@
 band.vtl
 
 <h2>$band.getBandName()</h2>
+<form action ="/delete/band/:id" method ='post'>
+  <input id="bandId" name="bandId" type="hidden" value="$band.getId()">
+  <button type = 'submit'> Delete Band </button>
+</form>
 
 <!-- #if($band.getVenues()) -->
   #foreach ($venue in $band.getVenues())

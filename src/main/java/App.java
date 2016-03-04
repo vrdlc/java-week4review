@@ -18,7 +18,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/band", (request, response) -> { //POSTS TITLES TO BOOKS PAGE
+    post("/band", (request, response) -> { //POSTS BANDS TO HOME PAGE
       HashMap model = new HashMap();
       String band_name = request.queryParams("newBandName");
       String genre = request.queryParams("newBandGenre");
@@ -28,12 +28,21 @@ public class App {
       return null;
     });
 
-    post("/venue", (request, response) -> { //POSTS AUTHORS TO BOOKS PAGE
+    post("/venue", (request, response) -> { //POSTS VENUES TO HOME PAGE
       HashMap model = new HashMap();
       String venue_name = request.queryParams("newVenue");
       String style = request.queryParams("newVenueStyle");
       Venue newVenue = new Venue(venue_name, style);
       newVenue.save();
+      response.redirect("/");
+      return null;
+    });
+
+    post("/delete/band/:id", (request, response) -> { //DELETES BANDS INDIVIDUALLY
+      HashMap model = new HashMap();
+      int id = Integer.parseInt(request.queryParams("bandId"));
+      Band band = Band.find(id);
+      band.delete();
       response.redirect("/");
       return null;
     });
@@ -79,44 +88,8 @@ public class App {
       response.redirect("/venue/" + venueId);
       return null;
     });
-  //
-  //   get("/patrons", (request,response) -> { //PATRONS PAGE W/ FORM TO ENTER PATRON NAME
-  //     HashMap model = new HashMap();
-  //     model.put("patrons", Patron.all());
-  //     model.put("template", "templates/patrons.vtl");
-  //     return new ModelAndView(model, layout);
-  //   }, new VelocityTemplateEngine());
-  //
-  //   post("/patrons", (request, response) -> { //POSTS PATRONS TO PATRON PAGE
-  //     HashMap model = new HashMap();
-  //     String patron = request.queryParams("newPatron");
-  //     Patron newPatron = new Patron(patron);
-  //     newPatron.save();
-  //     response.redirect("/patrons");
-  //     return null;
-  //   });
-  //
-  //
-  //   get("/patrons/:id", (request, response) -> {
-  //     HashMap model = new HashMap();
-  //     int id = Integer.parseInt(request.params("id"));
-  //     Patron patron = Patron.find(id);
-  //     model.put("patron", patron);
-  //     model.put("allCopies", Copies.all());
-  //     model.put("template", "templates/patron.vtl");
-  //     return new ModelAndView(model, layout);
-  //   }, new VelocityTemplateEngine());
-  //
-  //   post("/patrons/:id", (request, response) -> {
-  //     HashMap model = new HashMap();
-  //     int patronId = Integer.parseInt(request.params("id"));
-  //     int copyId = Integer.parseInt(request.queryParams("copy"));
-  //     Copies copies = Copies.find(copyId);
-  //     Patron newPatron = Patron.find(patronId);
-  //     newPatron.addCopies(copies);
-  //     response.redirect("/patrons/" + patronId);
-  //     return null;
-  //   });
+
+
   }
 
 }
