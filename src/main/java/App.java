@@ -102,6 +102,15 @@ public class App {
       return null;
     });
 
+    post("/delete/venue/:id", (request, response) -> { //DELETES BANDS INDIVIDUALLY
+      HashMap model = new HashMap();
+      int id = Integer.parseInt(request.queryParams("venueId"));
+      Venue venue = Venue.find(id);
+      venue.delete();
+      response.redirect("/");
+      return null;
+    });
+
 
   }
 
