@@ -1,0 +1,27 @@
+author.vtl
+
+<h2>$author.getAuthor()</h2>
+
+#if($author.getTitles())
+  #foreach ($title in $author.getTitles())
+  <li><a href="/title/$title.getId()">$title.getTitle()</a></li>
+  #end
+#end
+
+<form action="/author/$author.getId()" method="post">
+
+  <input id="authorId" name="authorId" type="hidden" value="$author.getId()">
+
+  <label for="titleName">Titles by this author</label>
+  <select id="titleName" name="titleName" type="text">
+    #foreach ($title in $allTitles)
+    <option value="$title.getId()">$title.getTitle()</option>
+    #end
+  </select>
+  <button type="submit">Assign Title</button>
+</form>
+
+<br>
+View <a href="/books">books</a> by Title
+<br>
+Return to <a href="/">Main Page</a>
