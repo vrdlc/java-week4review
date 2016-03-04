@@ -44,11 +44,13 @@ public class App {
       return null;
     });
 
+
     post("/delete/venues", (request, response) -> { //DELETES ALL VENUES
       Venue.deleteAll();
       response.redirect("/");
       return null;
     });
+
 
     get("/band/:id", (request, response) -> {
       HashMap model = new HashMap();
@@ -64,9 +66,22 @@ public class App {
       HashMap model = new HashMap();
       int bandId = Integer.parseInt(request.queryParams("bandId"));
       int venueId = Integer.parseInt(request.queryParams("venueId"));
+      // String showDate = request.queryParams("showDate");
       Venue venue = Venue.find(venueId);
       Band band = Band.find(bandId);
-      band.addVenue(venue);
+      band.addVenue(venue); // <-- HAD showDate IN HERE 
+      response.redirect("/band/" + bandId);
+      return null;
+    });
+
+    post("/update/band/:id", (request, response) -> {
+      HashMap model = new HashMap();
+      int bandId = (Integer.parseInt(request.queryParams("bandId")));
+      Band band = Band.find(bandId);
+      String bandName = request.queryParams("bandName");
+      String genre = request.queryParams("genre");
+      band.updateBandName(bandName);
+      band.updateGenre(genre);
       response.redirect("/band/" + bandId);
       return null;
     });
@@ -79,7 +94,6 @@ public class App {
       response.redirect("/");
       return null;
     });
-
 
     get("/venue/:id", (request, response) -> {
       HashMap model = new HashMap();
