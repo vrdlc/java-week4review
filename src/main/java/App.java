@@ -37,49 +37,48 @@ public class App {
       response.redirect("/");
       return null;
     });
-  //
-  //
-  //   get("/title/:id", (request, response) -> {
-  //     HashMap model = new HashMap();
-  //     int id = Integer.parseInt(request.params("id"));
-  //     Title title = Title.find(id);
-  //     model.put("title", title);
-  //     model.put("allAuthors", Author.all());
-  //     model.put("template", "templates/title.vtl");
-  //     return new ModelAndView(model, layout);
-  //   }, new VelocityTemplateEngine());
-  //
-  //   post("/title/:id", (request, response) -> {
-  //     HashMap model = new HashMap();
-  //     int titleId = Integer.parseInt(request.queryParams("titleId"));
-  //     int authorId = Integer.parseInt(request.queryParams("authorName"));
-  //     Author author = Author.find(authorId);
-  //     Title title = Title.find(titleId);
-  //     title.addAuthor(author);
-  //     response.redirect("/title/" + titleId);
-  //     return null;
-  //   });
-  //
-  //   get("/author/:id", (request, response) -> {
-  //     HashMap model = new HashMap();
-  //     int id = Integer.parseInt(request.params("id"));
-  //     Author author = Author.find(id);
-  //     model.put("author", author);
-  //     model.put("allTitles", Title.all());
-  //     model.put("template", "templates/author.vtl");
-  //     return new ModelAndView(model, layout);
-  //   }, new VelocityTemplateEngine());
-  //
-  //   post("/author/:id", (request, response) -> {
-  //     HashMap model = new HashMap();
-  //     int authorId = Integer.parseInt(request.queryParams("authorId"));
-  //     int titleId = Integer.parseInt(request.queryParams("titleName"));
-  //     Title title = Title.find(titleId);
-  //     Author author = Author.find(authorId);
-  //     author.addTitle(title);
-  //     response.redirect("/author/" + authorId);
-  //     return null;
-  //   });
+
+    get("/band/:id", (request, response) -> {
+      HashMap model = new HashMap();
+      int id = Integer.parseInt(request.params("id"));
+      Band band = Band.find(id);
+      model.put("band", band);
+      model.put("allVenues", Venue.all());
+      model.put("template", "templates/band.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/band/:id", (request, response) -> {
+      HashMap model = new HashMap();
+      int bandId = Integer.parseInt(request.queryParams("bandId"));
+      int venueId = Integer.parseInt(request.queryParams("venueId"));
+      Venue venue = Venue.find(venueId);
+      Band band = Band.find(bandId);
+      band.addVenue(venue);
+      response.redirect("/band/" + bandId);
+      return null;
+    });
+
+    get("/venue/:id", (request, response) -> {
+      HashMap model = new HashMap();
+      int id = Integer.parseInt(request.params("id"));
+      Venue venue = Venue.find(id);
+      model.put("venue", venue);
+      model.put("allBands", Band.all());
+      model.put("template", "templates/venue.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/venue/:id", (request, response) -> {
+      HashMap model = new HashMap();
+      int venueId = Integer.parseInt(request.queryParams("venueId"));
+      int bandId = Integer.parseInt(request.queryParams("bandId"));
+      Band band = Band.find(bandId);
+      Venue venue = Venue.find(venueId);
+      venue.addBand(band);;
+      response.redirect("/venue/" + venueId);
+      return null;
+    });
   //
   //   get("/patrons", (request,response) -> { //PATRONS PAGE W/ FORM TO ENTER PATRON NAME
   //     HashMap model = new HashMap();

@@ -22,7 +22,7 @@ public class IntegrationTest extends FluentTest {
   }
 
   @Test //HAS STALE ELEMENT EXCEPTION! WHY?!?
-  public void authorFormInputsNewTitleAndNewAuthor() {
+  public void formsInputNewBandAndNewVenue() {
     goTo("http://localhost:4567/");
     fill("#newBandName").with("Firewater");
     fill("#newBandGenre").with("rock");
@@ -35,6 +35,31 @@ public class IntegrationTest extends FluentTest {
     assertThat(pageSource()).contains("Berbatis");
     assertThat(pageSource()).contains("stand-up");
   }
+
+  @Test
+  public void addVenueToBand() {
+    Band newBand = new Band ("Firewater", "rock");
+    newBand.save();
+    Venue newVenue = new Venue ("Berbati's", "stand-up");
+    newVenue.save();
+    String bandPath = String.format("http://localhost:4567/band/%d", newBand.getId());
+    goTo(bandPath);
+    assertThat(pageSource()).contains("Firewater");
+    assertThat(pageSource()).contains("Berbati's");
+  }
+
+  @Test
+  public void addBandtoVenue() {
+    Band newBand = new Band ("Firewater", "rock");
+    newBand.save();
+    Venue newVenue = new Venue ("Berbati's", "stand-up");
+    newVenue.save();
+    String venuePath = String.format("http://localhost:4567/venue/%d", newVenue.getId());
+    goTo(venuePath);
+    assertThat(pageSource()).contains("Firewater");
+    assertThat(pageSource()).contains("Berbati's");
+  }
+
 //
 //   // @TEST
 //   // public void patronFormInputsNewPatron() {
