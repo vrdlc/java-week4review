@@ -1,0 +1,19 @@
+update-band.vtl
+
+<h2>Update Band Information</h2>
+
+<br>
+
+<form action="/update/band/:id" method="post">
+  <input id="bandId" name="bandId" type="hidden" value="$band.getId()">
+  <label for="bandName">Band Name:</label>
+  <textarea class="form-control" rows="1" name="bandName">$band.getBandName()</textarea>
+  <br>
+  <label for="genre">Genre:</label>
+  <textarea class="form-control" rows="1" name="name">$band.getGenre()</textarea>
+  <button type="submit">Update Band Information</button>
+</form>
+
+
+
+UPDATING BAND INFO

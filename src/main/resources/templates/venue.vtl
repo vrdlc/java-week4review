@@ -1,6 +1,14 @@
 venue.vtl
 
-<h2>$venue.getVenueName()</h2>
+<h2>Venue Name: $venue.getVenueName()</h2>
+<h4>Style: $venue.getStyle()</h2>
+<br>
+<form action ="/delete/venue/:id" method ='post'>
+  <input id="venueId" name="venueId" type="hidden" value="$venue.getId()">
+  <button type = 'submit'> Delete Venue </button>
+</form>
+
+<br>
 
 <!-- #if($venue.getBands()) -->
   #foreach ($band in $venue.getBands())
