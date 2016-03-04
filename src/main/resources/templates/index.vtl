@@ -28,6 +28,7 @@ index.vtl
     #foreach ($band in $bands)
     <li><a href="/band/$band.getId()">$band.getBandName()</a></li>
     #end
+    <button type="submit" class="btn btn-danger">Delete All Bands</button>
   </div>
 
   <div class="col-sm-6">
@@ -35,5 +36,6 @@ index.vtl
     #foreach ($venue in $venues)
     <li><a href="/venue/$venue.getId()">$venue.getVenueName()</a></li>
     #end
+    <button type="submit" class="btn btn-danger">Delete All Venues</button>
   </div>
 </div>

@@ -95,6 +95,14 @@ public class Band {
     }
   }
 
+  public static void deleteAll() {
+  try(Connection con = DB.sql2o.open()) {
+    String deleteQuery = "DELETE FROM bands;";
+    con.createQuery(deleteQuery)
+    .executeUpdate();
+  }
+}
+
 //JOIN
   public void addVenue (Venue venue) {
     String sql = "INSERT INTO band_venue (id_band, id_venue) VALUES (:id_band, :id_venue)";
