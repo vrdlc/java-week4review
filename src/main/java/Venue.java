@@ -41,6 +41,7 @@ public class Venue {
     }
   }
 
+//CREATE
   public void save() {
     String sql = "INSERT INTO venues (venue_name, style) VALUES (:venue_name, :style)";
     try (Connection con = DB.sql2o.open()) {
@@ -52,6 +53,7 @@ public class Venue {
     }
   }
 
+//READ
   public static Venue find(int id) {
     String sql = "SELECT id, venue_name, style FROM venues WHERE id = :id";
     try(Connection con = DB.sql2o.open()) {
@@ -62,6 +64,7 @@ public class Venue {
     }
   }
 
+//UPDATE
   public void updateVenueName(String venue_name) {
     String sql = "UPDATE venues SET venue_name = :venue_name WHERE id = :id";
     try(Connection con = DB.sql2o.open()) {
@@ -82,6 +85,7 @@ public class Venue {
     }
   }
 
+//DESTROY
   public void delete() {
     String sql = "DELETE FROM venues WHERE id = :id";
     try(Connection con = DB.sql2o.open()) {
@@ -91,6 +95,8 @@ public class Venue {
     }
   }
 
+
+//JOIN
   public void addBand (Band band) {
     String sql = "INSERT INTO band_venue (id_band, id_venue) VALUES (:id_band, :id_venue)";
     try(Connection con = DB.sql2o.open()) {
