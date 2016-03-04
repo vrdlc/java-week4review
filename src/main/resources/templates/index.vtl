@@ -1,9 +1,41 @@
 index.vtl
+<h2>Create and View Lists of Bands and Venues</h2>
 
-<h1>Library Management</h1>
+<form action="/band" method="post">
+  <div class="form-group">
+    <label for="newBandName">Enter a New Band Name</label>
+    <input type="text" name="newBandName" class="form-control" id="newBandName" placeholder="BandName" required>
+    <input type="text" name="newBandGenre" class="form-control" id="newBandGenre" placeholder="BandGenre" required>
+
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<form action="/venue" method="post">
+  <div class="form-group">
+    <label for="newVenue">Enter a Venue</label>
+    <input type="text" name="newVenue" class="form-control" id="newVenue" placeholder="Venue" required>
+    <input type="text" name="newVenueStyle" class="form-control" id="newVenueStyle" placeholder="VenueStyle" required>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+
+<div class="row">
+  <div class="col-sm-6">
+
+    <h3>Band Name</h3>
+    #foreach ($band in $bands)
+    <li><a href="/band/$band.getId()">$band.getBandName()</a></li>
+    #end
+  </div>
+
+  <div class="col-sm-6">
+    <h3>Venue List</h3>
+    #foreach ($venue in $venues)
+    <li><a href="/venue/$venue.getId()">$venue.getVenueName()</a></li>
+    #end
+  </div>
+</div>
 
 <br>
-View<a href="/books">Books</a>
-<!-- View<a href="/catalog">Library Catalog</a> -->
-<br>
-View<a href="/patrons">Member Database</a>
