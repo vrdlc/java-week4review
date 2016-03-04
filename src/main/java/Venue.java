@@ -95,6 +95,13 @@ public class Venue {
     }
   }
 
+  public static void deleteAll() {
+  try(Connection con = DB.sql2o.open()) {
+    String deleteQuery = "DELETE FROM venues;";
+    con.createQuery(deleteQuery)
+    .executeUpdate();
+  }
+}
 
 //JOIN
   public void addBand (Band band) {

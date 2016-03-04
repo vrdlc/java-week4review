@@ -28,6 +28,12 @@ public class App {
       return null;
     });
 
+    post("delete/bands", (request, response) -> { //DELETES ALL BANDS
+      Band.deleteAll();
+      response.redirect("/");
+      return null;
+    });
+
     post("/venue", (request, response) -> { //POSTS VENUES TO HOME PAGE
       HashMap model = new HashMap();
       String venue_name = request.queryParams("newVenue");
@@ -38,11 +44,8 @@ public class App {
       return null;
     });
 
-    post("/delete/band/:id", (request, response) -> { //DELETES BANDS INDIVIDUALLY
-      HashMap model = new HashMap();
-      int id = Integer.parseInt(request.queryParams("bandId"));
-      Band band = Band.find(id);
-      band.delete();
+    post("/delete/venues", (request, response) -> { //DELETES ALL VENUES
+      Venue.deleteAll();
       response.redirect("/");
       return null;
     });
@@ -68,6 +71,16 @@ public class App {
       return null;
     });
 
+    post("/delete/band/:id", (request, response) -> { //DELETES BANDS INDIVIDUALLY
+      HashMap model = new HashMap();
+      int id = Integer.parseInt(request.queryParams("bandId"));
+      Band band = Band.find(id);
+      band.delete();
+      response.redirect("/");
+      return null;
+    });
+
+
     get("/venue/:id", (request, response) -> {
       HashMap model = new HashMap();
       int id = Integer.parseInt(request.params("id"));
@@ -86,6 +99,15 @@ public class App {
       Venue venue = Venue.find(venueId);
       venue.addBand(band);;
       response.redirect("/venue/" + venueId);
+      return null;
+    });
+
+    post("/delete/venue/:id", (request, response) -> { //DELETES BANDS INDIVIDUALLY
+      HashMap model = new HashMap();
+      int id = Integer.parseInt(request.queryParams("venueId"));
+      Venue venue = Venue.find(id);
+      venue.delete();
+      response.redirect("/");
       return null;
     });
 

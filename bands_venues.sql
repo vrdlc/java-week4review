@@ -36,7 +36,8 @@ SET default_with_oids = false;
 CREATE TABLE band_venue (
     id integer NOT NULL,
     id_band integer,
-    id_venue integer
+    id_venue integer,
+    show_date character varying
 );
 
 
@@ -156,7 +157,28 @@ ALTER TABLE ONLY venues ALTER COLUMN id SET DEFAULT nextval('venues_id_seq'::reg
 -- Data for Name: band_venue; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY band_venue (id, id_band, id_venue) FROM stdin;
+COPY band_venue (id, id_band, id_venue, show_date) FROM stdin;
+1	1	1	\N
+2	1	1	\N
+3	1	1	\N
+4	1	1	\N
+5	1	1	\N
+6	1	1	\N
+7	1	1	\N
+8	1	1	\N
+9	1	1	\N
+10	3	3	\N
+11	3	1	\N
+12	3	1	\N
+13	3	1	\N
+14	3	2	\N
+15	1	1	\N
+16	2	1	\N
+17	1	3	\N
+18	1	2	\N
+19	1	1	\N
+20	4	2	\N
+21	5	1	\N
 \.
 
 
@@ -164,7 +186,7 @@ COPY band_venue (id, id_band, id_venue) FROM stdin;
 -- Name: band_venue_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('band_venue_id_seq', 1, false);
+SELECT pg_catalog.setval('band_venue_id_seq', 21, true);
 
 
 --
@@ -172,6 +194,13 @@ SELECT pg_catalog.setval('band_venue_id_seq', 1, false);
 --
 
 COPY bands (id, band_name, genre) FROM stdin;
+6	Red Elvises	surf guitar
+7	Morphine	blues/jazz
+8	Stepdad	electro-pop
+9	Talking Heads	pop
+10	Oingo Boingo	it's complicated
+5	Firewater	dirty jazz
+11	Chungking Mansions	vaporware
 \.
 
 
@@ -179,7 +208,7 @@ COPY bands (id, band_name, genre) FROM stdin;
 -- Name: bands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('bands_id_seq', 1, false);
+SELECT pg_catalog.setval('bands_id_seq', 11, true);
 
 
 --
@@ -187,6 +216,9 @@ SELECT pg_catalog.setval('bands_id_seq', 1, false);
 --
 
 COPY venues (id, venue_name, style) FROM stdin;
+2	Arlene Schnizter Concert Hall	Sit-down
+3	Crystal Ballroom	dance floor
+4	Berbati's	stand-up
 \.
 
 
@@ -194,7 +226,7 @@ COPY venues (id, venue_name, style) FROM stdin;
 -- Name: venues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('venues_id_seq', 1, false);
+SELECT pg_catalog.setval('venues_id_seq', 4, true);
 
 
 --
