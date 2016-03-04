@@ -53,9 +53,10 @@ public class App {
       HashMap model = new HashMap();
       int bandId = Integer.parseInt(request.queryParams("bandId"));
       int venueId = Integer.parseInt(request.queryParams("venueId"));
+      String showDate = request.queryParams("showDate");
       Venue venue = Venue.find(venueId);
       Band band = Band.find(bandId);
-      band.addVenue(venue);
+      band.addVenue(venue, showDate);
       response.redirect("/band/" + bandId);
       return null;
     });
