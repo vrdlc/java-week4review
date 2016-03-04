@@ -1,7 +1,9 @@
 band.vtl
 
+
 <h2>$band.getBandName()</h2>
-<h2>Band Name: $band.getBandName()</h2> <a href="update/band/:id"><h6>Update Band Information?</h6></a>
+
+<h2>Band Name: $band.getBandName()</h2>
 <h4>Genre: $band.getGenre()</h4>
 <br>
 <form action ="/delete/band/:id" method ='post'>
@@ -9,6 +11,7 @@ band.vtl
   <button type = 'submit'> Delete Band </button>
 </form>
 
+<br>
 <!-- #if($band.getVenues()) -->
   #foreach ($venue in $band.getVenues())
   <li><a href="/venue/$venue.getId()">$venue.getVenueName()</a></li>
@@ -25,11 +28,21 @@ band.vtl
     <option value="$venue.getId()">$venue.getVenueName()</option>
     #end
   </select>
-  <label for="showDate">Enter a date for the show</label>
-  <input id="showDate" name"showDate" type="date">
+  <!-- <label for="showDate">Enter a date for the show</label>
+  <input id="showDate" name"showDate" type="date"> -->
   <button type="submit">Assign Venue</button>
 </form>
 
+<h3>Would you like to update this information?</h3>
+<form action="/update/band/:id" method="post">
+  <input id="bandId" name="bandId" type="hidden" value="$band.getId()">
+  <label for="bandName">Band Name:</label>
+  <textarea class="form-control" rows="1" name="bandName">$band.getBandName()</textarea>
+  <br>
+  <label for="genre">Genre:</label>
+  <textarea class="form-control" rows="1" name="genre">$band.getGenre()</textarea>
+  <button type="submit">Update Band Information</button>
+</form>
 <br>
 
 <br>
