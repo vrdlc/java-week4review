@@ -12,7 +12,9 @@ This program will allow users to add bands, with genre, and venues, with venue s
 
 
 ##Setup
-###### 1. Clone the directory to your desktop.  
+###### 
+1. Clone the directory to your desktop.  
+
 2. Start postgres in a terminal window, then minimize it. Open a new terminal window and type "psql". Then create a database called "bands_venues". Type the following command: "pg_dump bands_venues > bands_venues.sql". This will automatically create the tables you will need to use this program. 
 
 3. In your terminal, open a new tab. Go into the cloned folder on your desktop (java-week4review) and run Gradle, then go to http://localhost:4567 in your browser. 
