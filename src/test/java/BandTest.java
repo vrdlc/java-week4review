@@ -66,30 +66,31 @@ public class BandTest {
     newBand.delete();
     assertEquals(Band.all().size(), 0);
   }
-//NOT PASSING, INDEX OUT OF BOUNDS EXCEPTION, DON'T KNOW WHY, WILL TRY AGAIN LATER
-  // @Test
-  // public void addVenue_addsVenueToBand() {
-  //   Band newBand = new Band("Firewater", "rock");
-  //   newBand.save();
-  //
-  //   Venue newVenue = new Venue ("Berbati's", "stand-up");
-  //   newBand.addVenue(newVenue);
-  //
-  //   Venue savedVenue = newBand.getVenues().get(0);
-  //   assertTrue(newVenue.equals(savedVenue));
-  // }
+
+  @Test
+  public void addVenue_addsVenueToBand() {
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+
+    Venue newVenue = new Venue ("Berbati's", "stand-up");
+    newVenue.save();
+
+    newBand.addVenue(newVenue);
+    Venue savedVenue = newBand.getVenues().get(0);
+    assertTrue(newVenue.equals(savedVenue));
+  }
 
 
-//   @Test
-//   public void getVenues_getsVenuesBandPlaysAt() {
-//     Venue newVenue = new Venue("Berbati's", "stand-up");
-//     newVenue.save();
-//
-//     Band newBand = new Band("Firewater", "rock");
-//     newBand.save();
-//
-//     newBand.addVenue(newVenue);
-//     List savedVenues = newBand.getVenues();
-//     assertEquals(savedVenues.size(), 1);
-//   }
+  @Test
+  public void getVenues_getsVenuesBandPlaysAt() {
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
+
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+
+    newBand.addVenue(newVenue);
+    List savedVenues = newBand.getVenues();
+    assertEquals(savedVenues.size(), 1);
+  }
 }

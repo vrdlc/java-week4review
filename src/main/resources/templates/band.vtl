@@ -2,11 +2,11 @@ band.vtl
 
 <h2>$band.getBandName()</h2>
 
-#if($band.getvenues())
+<!-- #if($band.getVenues()) -->
   #foreach ($venue in $band.getVenues())
   <li><a href="/venue/$venue.getId()">$venue.getVenueName()</a></li>
   #end
-#end
+<!-- #end -->
 
 <form action="/band/$band.getId()" method="post">
 
