@@ -82,6 +82,7 @@ public class Band {
       .addParameter("genre", genre)
       .addParameter("id", id)
       .executeUpdate();
+
     }
   }
 
@@ -92,8 +93,14 @@ public class Band {
       con.createQuery(sql)
        .addParameter("id", id)
        .executeUpdate();
+
+    String joinDeleteQuery = "DELETE FROM band_venue WHERE id_band = :id";
+       con.createQuery(joinDeleteQuery)
+       .addParameter("id", this.getId())
+       .executeUpdate();
+     }
     }
-  }
+
 
   public static void deleteAll() {
   try(Connection con = DB.sql2o.open()) {
@@ -125,5 +132,16 @@ public class Band {
       .executeAndFetch(Venue.class);
       return venues;
     }
-  }
+  }//HUNG UP HERE. DOES SHOWDATE GET ITS OWN METHODS? OR CAN IT FIT INTO THESE JOIN STATEMENTS? AND IF SO, HOW?
+
+  // public void addVenue (Venue venue) {
+  //   String sql = "INSERT INTO band_venue (id_band, id_venue, show_date) VALUES (:id_band, :id_venue, :show_date)";
+  //   try(Connection con = DB.sql2o.open()) {
+  //     con.createQuery(sql)
+  //        .addParameter("id_band", this.getId())
+  //        .addParameter("id_venue", venue.getId())
+  //        .addParameter("show_date", showDate.getShowDate())
+  //        .executeUpdate();
+  //   }
+  // }
 }
