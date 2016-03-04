@@ -10,7 +10,7 @@ venue.vtl
 
 <!-- #if($venue.getBands()) -->
   #foreach ($band in $venue.getBands())
-  <li><a href="/band/$band.getId()">$band.getBandName()</a></li>
+  <li><h4><a href="/band/$band.getId()">$band.getBandName()</a></h4></li>
   #end
 <!-- #end -->
 
