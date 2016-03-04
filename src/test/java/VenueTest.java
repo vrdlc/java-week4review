@@ -2,102 +2,94 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.List;
 
-public class PatronTest {
+public class VenueTest {
 
   @Rule
   public DatabaseRule database = new DatabaseRule();
 
   @Test
   public void all_emptyAtFirst() {
-    assertEquals(Patron.all().size(), 0);
+    assertEquals(Venue.all().size(), 0);
   }
 
   @Test
-  public void equals_returnsTrueIfPatronsAreTheSame() {
-    Patron firstPatron = new Patron("Bob Smith");
-    Patron secondPatron = new Patron("Bob Smith");
-    assertTrue(firstPatron.equals(secondPatron));
+  public void equals_returnsTrueIfVenuesAreTheSame() {
+    Venue firstVenue = new Venue("Berbati's", "stand-up");
+    Venue secondVenue = new Venue("Berbati's", "stand-up");
+    assertTrue(firstVenue.equals(secondVenue));
   }
 
   @Test
-  public void save_addsInstaceOfPatronToDatabase() {
-    Patron newPatron = new Patron("Bob Smith");
-    newPatron.save();
-    Patron savedPatron = Patron.all().get(0);
-    assertTrue(newPatron.equals(savedPatron));
+  public void save_addsInstaceOfVenueToDatabase() {
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
+    Venue savedVenue = Venue.all().get(0);
+    assertTrue(newVenue.equals(savedVenue));
   }
 
   @Test
   public void save_assignsIdToObject() {
-    Patron newPatron = new Patron("Bob Smith");
-    newPatron.save();
-    Patron savedPatron = Patron.all().get(0);
-    assertEquals(newPatron.getId(), savedPatron.getId());
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
+    Venue savedVenue = Venue.all().get(0);
+    assertEquals(newVenue.getId(), savedVenue.getId());
   }
 
   @Test
-  public void find_locatesAllInstancesOfPatronInDatabaseUsingID() {
-    Patron newPatron = new Patron("Bob Smith");
-    newPatron.save();
-    Patron savedPatron = Patron.find(newPatron.getId());
-    assertTrue(newPatron.equals(savedPatron));
+  public void find_locatesAllInstancesOfVenueInDatabaseUsingID() {
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
+    Venue savedVenue = Venue.find(newVenue.getId());
+    assertTrue(newVenue.equals(savedVenue));
   }
 
   @Test
-  public void updateName_updatesNameInDatabase() {
-    Patron newPatron = new Patron("Bob Smith");
-    newPatron.save();
-    newPatron.updateName("John");
-    assertEquals(Patron.all().get(0).getName(), ("John"));
-  }
-
-  // @Test
-  // public void updateDueDate_updatesDueDateInDatabase() {
-  //   Patron newPatron = new Patron("Bob Smith");
-  //   newPatron.save();
-  //   newPatron.updateDueDate("3/15/2016");
-  //   assertEquals(Patron.all().get(0).getDueDate(), ("3/15/2016"));
-  // }
-  //
-  // @Test
-  // public void updateIdTitleAuthor_updatesIdTitleAuthorInDatabase() {
-  //   Patron newPatron = new Patron("Bob Smith");
-  //   newPatron.save();
-  //   newPatron.updateIdTitleAuthor(3);
-  //   assertEquals(Patron.all().get(0).getIdTitleAuthor(), 3);
-  // }
-
-  @Test
-  public void deletePatron_deletePatronObject() {
-    Patron newPatron = new Patron("Bob Smith");
-    newPatron.save();
-    newPatron.delete();
-    assertEquals(Patron.all().size(), 0);
+  public void updateVenueName_updatesVenueNameInDatabase() {
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
+    newVenue.updateVenueName("Dante's");
+    assertTrue(Venue.all().get(0).getVenueName().equals("Dante's"));
   }
 
   @Test
-  public void addCopies_addsCopiesToPatron() {
-    Patron newPatron = new Patron("Bob Smith");
-    newPatron.save();
-
-    Copies newCopies = new Copies(2, "3/12/2016", 2);
-    newCopies.save();
-
-    newPatron.addCopies(newCopies);
-    Copies savedCopies = newPatron.getCopies().get(0);
-    assertTrue(newCopies.equals(savedCopies));
+  public void updateStyle_updatesStyleInDatabase() {
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
+    newVenue.updateStyle("sit-down");
+    assertEquals(Venue.all().get(0).getStyle(), ("sit-down"));
   }
 
   @Test
-  public void getCopies_getsCopiesPatronsByPatronID() {
-    Copies newCopies = new Copies(2, "3/12/2016", 2);
-    newCopies.save();
+  public void deleteVenue_deleteVenueObject() {
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
+    newVenue.delete();
+    assertEquals(Venue.all().size(), 0);
+  }
 
-    Patron newPatron = new Patron("Bob Smith");
-    newPatron.save();
+  @Test
+  public void addBand_addsBandsToVenue() {
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
 
-    newPatron.addCopies(newCopies);
-    List savedCopies = newPatron.getCopies();
-    assertEquals(savedCopies.size(), 1);
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+
+    newVenue.addBand(newBand);
+    Band savedBand = newVenue.getBands().get(0);
+    assertTrue(newBand.equals(savedBand));
+  }
+
+  @Test
+  public void getBands_getsBandVenuesByVenueID() {
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
+
+    newVenue.addBand(newBand);
+    List savedBand = newVenue.getBands();
+    assertEquals(savedBand.size(), 1);
   }
 }

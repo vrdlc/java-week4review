@@ -2,76 +2,93 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.List;
 
-public class CopiesTest {
+public class BandTest {
 
   @Rule
   public DatabaseRule database = new DatabaseRule();
 
   @Test
   public void all_emptyAtFirst() {
-    assertEquals(Copies.all().size(), 0);
+    assertEquals(Band.all().size(), 0);
   }
 
   @Test
-  public void equals_returnsTrueIfCopiessAreTheSame() {
-    Copies firstCopies = new Copies(5, "3/05/2017", 1);
-    Copies secondCopies = new Copies(5, "3/05/2017", 1);
-    assertTrue(firstCopies.equals(secondCopies));
+  public void equals_returnsTrueIfBandsAreTheSame() {
+    Band firstBand = new Band("Firewater", "rock");
+    Band secondBand = new Band("Firewater", "rock");
+    assertTrue(firstBand.equals(secondBand));
   }
 
   @Test
-  public void save_DueDateToObject() {
-    Copies newCopies = new Copies(5, "3/05/2017", 1);
-    newCopies.save();
-    Copies savedCopies = Copies.all().get(0);
-    assertTrue(newCopies.equals(savedCopies));
+  public void save_bandToObject() {
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+    Band savedBand = Band.all().get(0);
+    assertTrue(newBand.equals(savedBand));
   }
 
   @Test
   public void save_assignsIdToObject() {
-    Copies newCopies = new Copies(5, "3/05/2017", 1);
-    newCopies.save();
-    Copies savedCopies = Copies.all().get(0);
-    assertEquals(newCopies.getId(), savedCopies.getId());
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+    Band savedBand = Band.all().get(0);
+    assertEquals(newBand.getId(), savedBand.getId());
   }
 
   @Test
-  public void find_locatesAllInstancesOfCopiesInDatabaseUsingID() {
-    Copies newCopies = new Copies(5, "3/05/2017", 1);
-    newCopies.save();
-    Copies savedCopies = Copies.find(newCopies.getId());
-    assertTrue(newCopies.equals(savedCopies));
+  public void find_locatesAllInstancesOfBandInDatabaseUsingID() {
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+    Band savedBand = Band.find(newBand.getId());
+    assertTrue(newBand.equals(savedBand));
   }
 
   @Test
-  public void updateCopies_updatesCopiesInDatabase() {
-    Copies newCopies = new Copies(5, "3/15/2017", 1);
-    newCopies.save();
-    newCopies.updateCopies(7);
-    assertEquals(Copies.all().get(0).getCopies(), 7);
+  public void updateBandName_updatesBandNameInDatabase() {
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+    newBand.updateBandName("Red Elvises");
+    assertEquals(Band.all().get(0).getBandName(), ("Red Elvises"));
   }
 
   @Test
-  public void updateDueDate_updatesDueDateInDatabase() {
-    Copies newCopies = new Copies(5, "3/15/2017", 1);
-    newCopies.save();
-    newCopies.updateDueDate("3/16/2017");
-    assertTrue(Copies.all().get(0).getDueDate().equals("3/16/2017"));
+  public void updateGenre_updatesGenreInDatabase() {
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+    newBand.updateGenre("international");
+    assertTrue(Band.all().get(0).getGenre().equals("international"));
   }
 
   @Test
-  public void updateTitleId_updatesTitleIdInDatabase() {
-    Copies newCopies = new Copies(5, "3/15/2017", 1);
-    newCopies.save();
-    newCopies.updateTitleId(7);
-    assertEquals(Copies.all().get(0).getTitleId(), 7);
+  public void deleteBand_deleteBandObject() {
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+    newBand.delete();
+    assertEquals(Band.all().size(), 0);
   }
 
   @Test
-  public void deleteCopies_deleteCopiesObject() {
-    Copies newCopies = new Copies(5, "3/05/2017", 1);
-    newCopies.save();
-    newCopies.delete();
-    assertEquals(Copies.all().size(), 0);
+  public void addVenue_addsVenueToBand() {
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+
+    Venue newVenue = new Venue ("Berbati's", "stand-up");
+    newBand.addVenue(newVenue);
+
+    Venue savedVenue = newBand.getVenues().get(0);
+    assertTrue(newVenue.equals(savedVenue));
+  }
+
+  @Test
+  public void getVenues_getsVenuesBandPlaysAt() {
+    Band newBand = new Band("Firewater", "rock");
+    newBand.save();
+
+    Venue newVenue = new Venue("Berbati's", "stand-up");
+    newVenue.save();
+
+    newBand.addVenue(newVenue);
+    List savedVenues = newBand.getVenues();
+    assertEquals(savedVenues.size(), 1);
   }
 }
